@@ -54,4 +54,26 @@ const getGreetings = async (req, res) => {
     res.status(404).send(e);
   }
 };
-module.exports = { createGreeting, getGreeting, getGreetings };
+
+const updateGreeting = async (req, res) => {
+  const { _id } = req.params;
+  const newValues = { $set: { ...req.body } };
+  if (req.body.hello) {
+    try {
+      await client.connect();
+      const db = client.db("exercises");
+      const r = await db
+        .collection("greetings")
+        .findOneAndUpdate({ _id }, newValues);
+      const { lastErrorObject, ok } = r;
+      assert.equal(1, lastErrorObject.n);
+      assert.equal(1, ok);
+      res.status(200).json({ status: 200, _id, ...req.body });
+    } catch (e) {
+      res.status(200).json({ status: 403, e });
+    }
+  } else {
+    res.status(403).json({ status: 403, message: "Something went wrong" });
+  }
+};
+module.exports = { createGreeting, getGreeting, getGreetings, updateGreeting };

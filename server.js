@@ -9,6 +9,7 @@ const {
   createGreeting,
   getGreeting,
   getGreetings,
+  updateGreeting,
 } = require("./exercises/exercise-2");
 const PORT = process.env.PORT || 8000;
 
@@ -22,6 +23,7 @@ express()
   // exercise 1
   .get("/data/:dbName/:collection", getCollection)
   .post("/ex-2/greeting", createGreeting)
+  .put("/ex-2/greeting/:_id", updateGreeting)
   .get("/ex-2/greetings", getGreetings)
   .get("/ex-2/:_id", getGreeting)
 
