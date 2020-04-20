@@ -11,7 +11,7 @@ As we learned in the last exercise, we don't have to manually create a database 
 const createGreeting = async (req, res) => {
   // temporary content... for testing purposes.
   console.log(req.body);
-  res.status(200).json('ok');
+  res.status(200).json("ok");
 };
 ```
 
@@ -47,7 +47,7 @@ yarn add assert
 and require it in `exercise-2.js`.
 
 ```js
-const assert = require('assert');
+const assert = require("assert");
 ```
 
 8. Edit `createGreeting`. This time we will wrap our code in a `try / catch` to be able to grab any errors. That part is done for you.
@@ -70,7 +70,7 @@ const createGreeting = async (req, res) => {
 9. Add the item to the database. Here we are declaring a variable `r` that will contain the response from the db server. We use `r.insertedCount` to validate that database received our document and added it to the collection. _Notice that the collection is called `greetings`_. Add these lines within the `try`.
 
 ```js
-const r = await db.collection('greetings').insertOne(req.body);
+const r = await db.collection("greetings").insertOne(req.body);
 assert.equal(1, r.insertedCount);
 ```
 
@@ -110,7 +110,7 @@ Instead, let's write a utility function that will migrate all of the data for us
 4. Declare a variable and assign it the contents of `greetings.json` like so:
 
 ```js
-const greetings = JSON.parse(fs.readFileSync('data/greetings.json'));
+const greetings = JSON.parse(fs.readFileSync("data/greetings.json"));
 ```
 
 5. Create an async function called `batchImport`.
@@ -139,7 +139,7 @@ Time to read the data!
 
 ```js
 const getGreeting = async (req, res) => {
-  res.status(200).json('bacon');
+  res.status(200).json("bacon");
 };
 ```
 
@@ -152,10 +152,10 @@ const getGreeting = async (req, res) => {
 _If the element doesn't exist, it will NOT return an error. It will return `null`. So we can add a condition to return the result only if it exists, if not return an error message._
 
 ```js
-db.collection('two').findOne({ _id }, (err, result) => {
+db.collection("two").findOne({ _id }, (err, result) => {
   result
     ? res.status(200).json({ status: 200, _id, data: result })
-    : res.status(404).json({ status: 404, _id, data: 'Not Found' });
+    : res.status(404).json({ status: 404, _id, data: "Not Found" });
   client.close();
 });
 ```
@@ -236,7 +236,7 @@ Can you improve the `getGreeting` function to handle the following usecase?
 A user wants to access the hello translation for a specific language, Cambodian, but doesn't know, or can't remember the language code for it. The user would like to enter
 
 ```js
-'/ex-2/greeting/cambodian';
+"/ex-2/greeting/cambodian";
 ```
 
 and expect the object to returned.
