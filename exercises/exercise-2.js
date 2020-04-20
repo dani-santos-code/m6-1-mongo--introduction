@@ -33,4 +33,25 @@ const getGreeting = async (req, res) => {
     res.status(404).send(e);
   }
 };
-module.exports = { createGreeting, getGreeting };
+
+const getGreetings = async (req, res) => {
+  const { start, limit } = req.query;
+  try {
+    await client.connect();
+    const db = client.db("exercises");
+    const greetings = await db.collection("greetings").find().toArray();
+    if (start && limit) {
+      limitCalc = parseInt(start) + parseInt(limit);
+      res.status(200).send({
+        status: 200,
+        start: parseInt(start),
+        limit: parseInt(limit),
+        greetings: greetings.slice(parseInt(start), limitCalc),
+      });
+    }
+    res.status(200).send(greetings.slice(0, 25));
+  } catch (e) {
+    res.status(404).send(e);
+  }
+};
+module.exports = { createGreeting, getGreeting, getGreetings };
