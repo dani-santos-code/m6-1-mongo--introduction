@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const { getCollection } = require("./exercises/exercise-1-2");
-
+const { createGreeting } = require("./exercises/exercise-2");
 const PORT = process.env.PORT || 8000;
 
 express()
@@ -17,6 +17,7 @@ express()
 
   // exercise 1
   .get("/data/:dbName/:collection", getCollection)
+  .post("/ex-2/greeting", createGreeting)
 
   // exercise 2
 
